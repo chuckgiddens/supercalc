@@ -1,6 +1,6 @@
 
 # SuperCalc in Xamarin
-## Writing by Chuck Giddens
+## Developed by Chuck Giddens
 
 ### Preface
 This app was requested as a test for job placement.  I will demo the following features and designs that I use for Xamarin production development.
@@ -10,5 +10,4 @@ This app was requested as a test for job placement.  I will demo the following f
 - Supports Light and Dark mode (reads phone settings)
 - Dependency Injection (IOC)
 - Unit Tests **(Red, Green, Refactor TDD)**
-
-Calculator built in Xamarin
+- CICD Pipeline and AppCenter.ms
