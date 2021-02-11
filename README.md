@@ -5,7 +5,7 @@
 ### Preface
 This app was requested as a test for job placement.  I will demo the following features and designs that I use for Xamarin production development.
 
-- MVVM Patter
+- MVVM Pattern
 - Shell Navigation
 - Supports Light and Dark mode (reads phone settings)
 - Dependency Injection (IOC)
