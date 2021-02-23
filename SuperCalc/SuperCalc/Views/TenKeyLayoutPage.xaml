@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Shell.PresentationMode="ModalAnimated"
+             xmlns:resources="clr-namespace:SuperCalc.Resources"
+             Title="{x:Static resources:AppResources.AppTitle}"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" xmlns:vm="clr-namespace:SuperCalc.ViewModels"
+             x:Class="SuperCalc.Views.TenKeyLayoutPage"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             ios:Page.UseSafeArea="true">
+    
+    <!--Context Binding gives faster response and runtime performance-->
+    <ContentPage.BindingContext>
+        <vm:TenKeyLayoutViewModel></vm:TenKeyLayoutViewModel>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="*,*,*,*,*,*" Margin="10" ColumnSpacing="10" RowSpacing="10">
+
+            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Style="{DynamicResource DigitsDisplay}" Text="{Binding DisplayValue}"></Label>
+            
+            <Button Style="{DynamicResource NumberButton}" Grid.Row="2" Grid.Column="0" 
+                    Text="{x:Static resources:AppResources.Button1}" Command="{Binding NumberPressCommand}" 
+                    CommandParameter="1" ></Button>
+            <Button Style="{DynamicResource NumberButton}" Grid.Row="2" Grid.Column="1" 
+                    Text="{x:Static resources:AppResources.Button2}" Command="{Binding NumberPressCommand}" 
+                    CommandParameter="2"></Button>
+            <Button Style="{DynamicResource NumberButton}" Grid.Row="2" Grid.Column="2" 
+                    Text="{x:Static resources:AppResources.Button3}" Command="{Binding NumberPressCommand}" 
+                    CommandParameter="3"></Button>
+            <Button Style="{DynamicResource NumberButton}" Grid.Row="3" Grid.Column="0" 
+                    Text="{x:Static resources:AppResources.Button4}" Command="{Binding NumberPressCommand}" 
+                    CommandParameter="4"></Button>
+            <Button Style="{DynamicResource NumberButton}" Grid.Row="3" Grid.Column="1" 
+                    Text="{x:Static resources:AppResources.Button5}" Command="{Binding NumberPressCommand}" 
+                    CommandParameter="5"></Button>
+            <Button Style="{DynamicResource NumberButton}" Grid.Row="3" Grid.Column="2" 
+                    Text="{x:Static resources:AppResources.Button6}" Command="{Binding NumberPressCommand}" 
+                    CommandParameter="6"></Button>
+            <Button Style="{DynamicResource NumberButton}" Grid.Row="4" Grid.Column="0" 
+                    Text="{x:Static resources:AppResources.Button7}" Command="{Binding NumberPressCommand}" 
+                    CommandParameter="7"></Button>
+            <Button Style="{DynamicResource NumberButton}" Grid.Row="4" Grid.Column="1" 
+                    Text="{x:Static resources:AppResources.Button8}" Command="{Binding NumberPressCommand}" 
+                    CommandParameter="8"></Button>
+            <Button Style="{DynamicResource NumberButton}" Grid.Row="4" Grid.Column="2" 
+                    Text="{x:Static resources:AppResources.Button9}" Command="{Binding NumberPressCommand}" 
+                    CommandParameter="9"></Button>
+
+            <!--Undo Button-->
+            <Button Style="{DynamicResource CalcCommandButton}" Grid.Row="5" Grid.Column="0" Text="&#xf2ea;"></Button>
+            <!--Zero Button-->
+            <Button Style="{DynamicResource NumberButton}" Grid.Row="5" Grid.Column="1" 
+                    Text="{x:Static resources:AppResources.Button0}" Command="{Binding NumberPressCommand}" 
+                    CommandParameter="9"></Button>
+            <!--Decimal Button-->
+            <Button Style="{DynamicResource NumberButton}" Grid.Row="5" Grid.Column="2" Text="&#xf111;" FontSize="Micro" FontFamily="FASolid"></Button>
+            <!--Divide Button-->
+            <Button Style="{DynamicResource CalcCommandButton}" Grid.Row="1" Grid.Column="3" Text="&#xf529;"></Button>
+            <!--Multiply Button-->
+            <Button Style="{DynamicResource CalcCommandButton}" Grid.Row="2" Grid.Column="3" Text="&#xf00d;"></Button>
+            <!--Substract Button-->
+            <Button Style="{DynamicResource CalcCommandButton}" Grid.Row="3" Grid.Column="3" Text="&#xf068;"></Button>
+            <!--Add Button-->
+            <Button Style="{DynamicResource CalcCommandButton}" Grid.Row="4" Grid.Column="3" Text="&#xf067;"></Button>
+            <!--Equals Button-->
+            <Button Style="{DynamicResource CalcCommandButton}" Grid.Row="5" Grid.Column="3" Text="&#xf52c;"></Button>
+
+        </Grid>
+    </ContentPage.Content>
+    
+</ContentPage>

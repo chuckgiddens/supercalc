@@ -10,7 +10,7 @@ namespace SuperCalc.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+        public ICalcEngine Calc => DependencyService.Get<ICalcEngine>();
 
         bool isBusy = false;
         public bool IsBusy

@@ -8,14 +8,12 @@ using Xamarin.Forms.Xaml;
 
 namespace SuperCalc.Views
 {
-    public partial class NewItemPage : ContentPage
+    public partial class TenKeyLayoutPage : ContentPage
     {
-        public Item Item { get; set; }
 
-        public NewItemPage()
+        public TenKeyLayoutPage()
         {
             InitializeComponent();
-            BindingContext = new NewItemViewModel();
         }
     }
 }
