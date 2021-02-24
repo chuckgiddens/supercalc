@@ -8,12 +8,11 @@ This app was requested as a test for job placement.  I will demo the following f
 - MVVM Pattern
 - Shell Navigation
 - Context Binding in Xaml
-- AppCenter Analytics (Crash and Logging)
 - Xaml Data Triggers
-- Xamarin MessagingCenter implementation
+- Action and Delegate Chaining
 - Localization Support (Multiple Languages)
 - Fonts Importing (FontAwesome)
 - Supports Light and Dark mode (reads phone settings)
 - Dependency Injection (IOC)
-- Unit Tests **(Red, Green, Refactor TDD)**
-- CICD Pipeline and AppCenter.ms
+- Unit Tests 
+- Not enough time for => CICD Pipeline and AppCenter.ms
