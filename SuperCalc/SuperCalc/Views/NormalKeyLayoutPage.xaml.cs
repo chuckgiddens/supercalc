@@ -4,12 +4,11 @@ using Xamarin.Forms;
 
 namespace SuperCalc.Views
 {
-    public partial class ItemDetailPage : ContentPage
+    public partial class NormalKeyLayoutPage : ContentPage
     {
-        public ItemDetailPage()
+        public NormalKeyLayoutPage()
         {
             InitializeComponent();
-            BindingContext = new ItemDetailViewModel();
         }
     }
 }
