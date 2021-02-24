@@ -5,7 +5,8 @@
              Shell.PresentationMode="ModalAnimated"
              xmlns:resources="clr-namespace:SuperCalc.Resources"
              Title="{x:Static resources:AppResources.AppTitle}"
-             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" xmlns:vm="clr-namespace:SuperCalc.ViewModels"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             xmlns:vm="clr-namespace:SuperCalc.ViewModels"
              x:Class="SuperCalc.Views.TenKeyLayoutPage"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              ios:Page.UseSafeArea="true">
@@ -49,7 +50,7 @@
                     </Label.Triggers>
                 </Label>
             </Grid>
-            <!--Example of Multiple Languages via Resources-->
+            <!--Example of Localization via Resources-->
             <Button Style="{DynamicResource NumberButton}" Grid.Row="2" Grid.Column="0" 
                     Text="{x:Static resources:AppResources.Button1}" Command="{Binding NumberPressCommand}" 
                     CommandParameter="1" ></Button>
