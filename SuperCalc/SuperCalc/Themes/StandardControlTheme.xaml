@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-    <ResourceDictionary  xmlns="http://xamarin.com/schemas/2014/forms"
+<ResourceDictionary  xmlns="http://xamarin.com/schemas/2014/forms"
                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                      x:Class="SuperCalc.StandardControlTheme">
 
@@ -18,7 +18,7 @@
         <Setter Property="FontFamily" Value="MontserratReg"></Setter>
         <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}"></Setter>
     </Style>
-    
+
     <Style TargetType="Label" x:Key="ButtonText">
         <Setter Property="HorizontalTextAlignment" Value="Center" ></Setter>
         <Setter Property="VerticalTextAlignment" Value="Center" ></Setter>
@@ -26,15 +26,25 @@
         <Setter Property="FontSize" Value="Large"></Setter>
         <Setter Property="FontFamily" Value="MontserratBold"></Setter>
     </Style>
-        
+
     <Style TargetType="Label" x:Key="DigitsDisplay">
         <Setter Property="HorizontalTextAlignment" Value="End" ></Setter>
         <Setter Property="VerticalTextAlignment" Value="Center" ></Setter>
-        <Setter Property="TextColor" Value="{DynamicResource CalcCommandButtonColor}"></Setter>
+        <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}"></Setter>
         <Setter Property="FontSize" Value="50"></Setter>
         <Setter Property="FontFamily" Value="MontserratReg"></Setter>
     </Style>
-        
+
+    <Style TargetType="Label" x:Key="AnswerDisplay" BasedOn="{StaticResource DigitsDisplay}">
+        <Setter Property="TextColor" Value="LimeGreen"></Setter>
+        <Setter Property="FontSize" Value="30"></Setter>
+        <Setter Property="FontFamily" Value="MontserratReg"></Setter>
+    </Style>
+    <Style TargetType="BoxView" x:Key="ScreenDigits">
+        <Setter Property="CornerRadius" Value="20"></Setter>
+        <Setter Property="BackgroundColor" Value="Black"></Setter>
+    </Style>
+
     <Style TargetType="Button" x:Key="CalcButton">
         <Setter Property="BackgroundColor" Value="{DynamicResource ControlBackgroundColor}"></Setter>
         <Setter Property="CornerRadius" Value="8"></Setter>
@@ -51,18 +61,19 @@
     </Style>
 
     <Style TargetType="Button" x:Key="CalcCommandButton"  BasedOn="{StaticResource CalcButton}">
+        <!--Example of Theme - Light and Dark-->
         <Setter Property="TextColor" Value="{AppThemeBinding Dark=Black,Light=White}"></Setter>
         <Setter Property="FontFamily" Value="FASolid"></Setter>
         <Setter Property="Margin" Value="0"></Setter>
     </Style>
-        
+
     <Style TargetType="Button" x:Key="CancelButton">
         <Setter Property="BackgroundColor" Value="{DynamicResource CancelColor}"></Setter>
         <Setter Property="FontFamily" Value="MontserratReg"></Setter>
         <Setter Property="CornerRadius" Value="8"></Setter>
         <Setter Property="TextColor" Value="WhiteSmoke"></Setter>
     </Style>
-        
+
     <Style TargetType="Frame" x:Key="CollectionRowFrame">
         <Setter Property="Padding" Value="1"></Setter>
         <Setter Property="BackgroundColor" Value="{DynamicResource ControlBackgroundColor}"></Setter>
@@ -70,7 +81,7 @@
         <Setter Property="HasShadow" Value="False"></Setter>
         <Setter Property="IsClippedToBounds" Value="True"></Setter>
     </Style>
-        
+
     <Style TargetType="Grid" x:Key="optionrow">
         <Setter Property="ColumnDefinitions" Value="45,Auto,*,30"></Setter>
     </Style>
@@ -81,7 +92,8 @@
         <Setter Property="Padding" Value="5"></Setter>
     </Style>
 
-        <Style TargetType="FontImageSource" x:Key="toolbarItem">
+    <!--Example of OnPlatform-->
+    <Style TargetType="FontImageSource" x:Key="toolbarItem">
         <Setter  Property="Size" Value="{OnPlatform Android=Large,iOS=30}"></Setter>
         <Setter Property="Color" Value="{DynamicResource IconColor}"></Setter>
         <Setter Property="FontFamily" Value="FASolid"></Setter>

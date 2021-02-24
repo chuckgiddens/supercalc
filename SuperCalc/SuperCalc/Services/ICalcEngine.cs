@@ -6,9 +6,15 @@ namespace SuperCalc.Services
 {
     public interface ICalcEngine
     {
-        double Add(double number);
-        double Subtract(double number);
-        double Divide(double number);
-        double Multiply(double number);
+        void Add(double number);
+        void Subtract(double number);
+        void Divide(double number);
+        void Multiply(double number);
+        void InitializeStartValue(double number);
+        double Results { get; }
+        void Clear();
+        void PopLastCalc();
+        bool CanPop { get; }
+        void AddTransaction(MathOperation operation, double value);
     }
 }

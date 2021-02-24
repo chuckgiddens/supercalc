@@ -15,12 +15,15 @@ namespace SuperCalc.ViewModels
 
         private ICalcEngine calc;
         public Command<string> NumberPressCommand { get; }
-        public Command<string> CalculationPressCommand { get; }
-
+        public Command<MathOperation> CalculationPressCommand { get; }
+        public Command PopLastCalcCommand { get; }
+        public Command RemoveLastDigitCommand { get; }
         public TenKeyLayoutViewModel()
         {
             NumberPressCommand = new Command<string>(UserInputDigit);
-            CalculationPressCommand = new Command<string>(ExecuteCalculation);
+            CalculationPressCommand = new Command<MathOperation>(ExecuteCalculation, (s) => { return _valueText.Length > 0; });
+            PopLastCalcCommand = new Command(PopLastCalculation, () => { return calc.CanPop; });
+            RemoveLastDigitCommand = new Command(RemoveLastDigit, () => { return _valueText.Length > 0; });
             calc = DependencyService.Resolve<ICalcEngine>();
         }
 
@@ -49,31 +52,72 @@ namespace SuperCalc.ViewModels
             }
         }
 
-        private void ExecuteCalculation(string operation)
+        private void RemoveLastDigit()
         {
-            switch(operation)
+            if (_valueText.Length > 0)
+                _valueText = _valueText.Substring(0, _valueText.Length - 1);
+            UpdateDisplay();
+        }
+
+        private void PopLastCalculation()
+        {
+            calc.PopLastCalc();
+            CurrentCalculationResults = calc.Results;
+            if (!calc.CanPop)
+                NextOperation = MathOperation.Init; //start over
+            PopLastCalcCommand.ChangeCanExecute();
+        }
+
+        MathOperation _nextOperation = MathOperation.Init;
+        public MathOperation NextOperation 
+        {
+            get => _nextOperation;
+            set => SetProperty(ref _nextOperation, value);
+        }
+
+        private void ExecuteCalculation(MathOperation operation)
+        {
+            if (!string.IsNullOrEmpty(_valueText))
             {
-                case "+":
-                    CurrentCalculationResults = calc.Add(DisplayUserInputText);
-                    break;
+                calc.AddTransaction(NextOperation, DisplayUserInputText);
+                CurrentCalculationResults = calc.Results;
+                NextOperation = operation;
             }
-            CurrentCalculationResults = calc.Add(_value);
+            if (NextOperation == MathOperation.Equals) //starting over so init the saved value to 0
+            {
+                calc.Clear();
+                NextOperation = MathOperation.Init;
+            }
+            PopLastCalcCommand.ChangeCanExecute();
+            CalculationPressCommand.ChangeCanExecute();
         }
 
         private void ResetInput()
         {
             _valueText = string.Empty;
             DisplayUserInputText = 0;
-
+            RemoveLastDigitCommand.ChangeCanExecute();
         }
 
         private void UserInputDigit(string value)
         {
             _valueText = _valueText + value;
-            if (Double.TryParse(_valueText, out double keyboardnumber))
+            UpdateDisplay();
+        }
+
+        private void UpdateDisplay()
+        {
+            if (_valueText.Length > 0)
             {
-                DisplayUserInputText = keyboardnumber;
+                if (Double.TryParse(_valueText, out double keyboardnumber))
+                {
+                    DisplayUserInputText = keyboardnumber;
+                }
             }
+            else
+                DisplayUserInputText = 0;
+            RemoveLastDigitCommand.ChangeCanExecute();
+            CalculationPressCommand.ChangeCanExecute();
         }
     }
 }

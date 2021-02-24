@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:enums="clr-namespace:SuperCalc.Services;assembly=SuperCalc"
              Shell.PresentationMode="ModalAnimated"
              xmlns:resources="clr-namespace:SuperCalc.Resources"
              Title="{x:Static resources:AppResources.AppTitle}"
@@ -21,9 +22,34 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="*,*,*,*,*,*" Margin="10" ColumnSpacing="10" RowSpacing="10">
-
-            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Style="{DynamicResource DigitsDisplay}" Text="{Binding DisplayValue}"></Label>
-            
+            <BoxView Style="{DynamicResource ScreenDigits}" Grid.Row="0" Grid.ColumnSpan="4" Grid.Column="0" ></BoxView>
+            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Style="{DynamicResource DigitsDisplay}" Text="{Binding DisplayUserInputText}" LineBreakMode="TailTruncation"></Label>
+            <Button Style="{DynamicResource CalcCommandButton}" Grid.Row="0" Grid.Column="3" 
+                    Text="&#xf0a8;" Command="{Binding RemoveLastDigitCommand}" BackgroundColor="{DynamicResource CancelColor}" ></Button>
+            <Grid  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" ColumnDefinitions="*,30">
+                <Label Style="{DynamicResource AnswerDisplay}" Text="{Binding CurrentCalculationResults}" LineBreakMode="TailTruncation"></Label>
+                <Label Style="{DynamicResource AnswerDisplay}" Grid.Column="1" FontFamily="FASolid" Text="">
+                    <!--Example of Data Triggers and also using Enums in XAML--> 
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding NextOperation}" Value="{x:Static enums:MathOperation.Init}">
+                            <Setter Property="Text" Value=""></Setter>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding NextOperation}" Value="{x:Static enums:MathOperation.Divide}">
+                            <Setter Property="Text" Value="&#xf529;"></Setter>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding NextOperation}" Value="{x:Static enums:MathOperation.Multiply}">
+                            <Setter Property="Text" Value="&#xf00d;"></Setter>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding NextOperation}" Value="{x:Static enums:MathOperation.Add}">
+                            <Setter Property="Text" Value="&#xf067;"></Setter>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding NextOperation}" Value="{x:Static enums:MathOperation.Subtract}">
+                            <Setter Property="Text" Value="&#xf068;"></Setter>
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+            </Grid>
+            <!--Example of Multiple Languages via Resources-->
             <Button Style="{DynamicResource NumberButton}" Grid.Row="2" Grid.Column="0" 
                     Text="{x:Static resources:AppResources.Button1}" Command="{Binding NumberPressCommand}" 
                     CommandParameter="1" ></Button>
@@ -51,25 +77,30 @@
             <Button Style="{DynamicResource NumberButton}" Grid.Row="4" Grid.Column="2" 
                     Text="{x:Static resources:AppResources.Button9}" Command="{Binding NumberPressCommand}" 
                     CommandParameter="9"></Button>
-
             <!--Undo Button-->
-            <Button Style="{DynamicResource CalcCommandButton}" Grid.Row="5" Grid.Column="0" Text="&#xf2ea;"></Button>
+            <Button Style="{DynamicResource CalcCommandButton}" Grid.Row="5" Grid.Column="0" Text="&#xf2ea;" Command="{Binding PopLastCalcCommand}"></Button>
             <!--Zero Button-->
             <Button Style="{DynamicResource NumberButton}" Grid.Row="5" Grid.Column="1" 
                     Text="{x:Static resources:AppResources.Button0}" Command="{Binding NumberPressCommand}" 
-                    CommandParameter="9"></Button>
+                    CommandParameter="0"></Button>
             <!--Decimal Button-->
-            <Button Style="{DynamicResource NumberButton}" Grid.Row="5" Grid.Column="2" Text="&#xf111;" FontSize="Micro" FontFamily="FASolid"></Button>
-            <!--Divide Button-->
-            <Button Style="{DynamicResource CalcCommandButton}" Grid.Row="1" Grid.Column="3" Text="&#xf529;"></Button>
-            <!--Multiply Button-->
-            <Button Style="{DynamicResource CalcCommandButton}" Grid.Row="2" Grid.Column="3" Text="&#xf00d;"></Button>
-            <!--Substract Button-->
-            <Button Style="{DynamicResource CalcCommandButton}" Grid.Row="3" Grid.Column="3" Text="&#xf068;"></Button>
-            <!--Add Button-->
-            <Button Style="{DynamicResource CalcCommandButton}" Grid.Row="4" Grid.Column="3" Text="&#xf067;"></Button>
+            <Button Style="{DynamicResource NumberButton}" Grid.Row="5" Grid.Column="2" Text="&#xf111;" FontSize="Micro" FontFamily="FASolid"
+                    Command="{Binding NumberPressCommand}" CommandParameter="."></Button>
             <!--Equals Button-->
-            <Button Style="{DynamicResource CalcCommandButton}" Grid.Row="5" Grid.Column="3" Text="&#xf52c;"></Button>
+            <Button Style="{DynamicResource CalcCommandButton}" Grid.Row="1" Grid.Column="3" Text="&#xf52c;"
+                     Command="{Binding CalculationPressCommand}" CommandParameter="{x:Static enums:MathOperation.Equals}" BackgroundColor="{DynamicResource AcceptColor}"></Button>
+            <!--Divide Button-->
+            <Button Style="{DynamicResource CalcCommandButton}" Grid.Row="2" Grid.Column="3" Text="&#xf529;"
+                     Command="{Binding CalculationPressCommand}" CommandParameter="{x:Static enums:MathOperation.Divide}"></Button> 
+            <!--Multiply Button-->
+            <Button Style="{DynamicResource CalcCommandButton}" Grid.Row="3" Grid.Column="3" Text="&#xf00d;"
+                     Command="{Binding CalculationPressCommand}" CommandParameter="{x:Static enums:MathOperation.Multiply}"></Button>
+            <!--Substract Button-->
+            <Button Style="{DynamicResource CalcCommandButton}" Grid.Row="4" Grid.Column="3" Text="&#xf068;"
+                     Command="{Binding CalculationPressCommand}" CommandParameter="{x:Static enums:MathOperation.Subtract}"></Button>
+            <!--Add Button-->
+            <Button Style="{DynamicResource CalcCommandButton}" Grid.Row="5" Grid.Column="3" Text="&#xf067;" 
+                    Command="{Binding CalculationPressCommand}" CommandParameter="{x:Static enums:MathOperation.Add}"></Button>
 
         </Grid>
     </ContentPage.Content>
